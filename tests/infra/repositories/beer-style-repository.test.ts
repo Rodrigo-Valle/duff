@@ -38,25 +38,45 @@ describe("BeerStyleRepository tests", () => {
     sut = new BeerStyleRepository(dataSource);
   });
 
-  test("should create and return a beerstyle", async () => {
-    const beerstyle = await sut.add(makeBeerStyleDTO());
+  describe("AddBeerStyle Method", () => {
+    test("should create and return a beerstyle", async () => {
+      const beerstyle = await sut.add(makeBeerStyleDTO());
 
-    expect(beerstyle.id).toBeTruthy();
+      expect(beerstyle.id).toBeTruthy();
+    });
   });
 
-  test("should return an array of beerstyle", async () => {
-    await repository.insert(addBeerStyleDTOArray);
+  describe("GetAllBeerStyle Method", () => {
+    test("should return an array of beerstyle", async () => {
+      await repository.insert(addBeerStyleDTOArray);
 
-    const beerstyle = await sut.getAll();
+      const beerstyle = await sut.getAll();
 
-    expect(Array.isArray(beerstyle)).toBe(true);
-    expect(beerstyle.length).toBe(2);
+      expect(Array.isArray(beerstyle)).toBe(true);
+      expect(beerstyle.length).toBe(2);
+    });
+
+    test("should return an empty array of beerstyle", async () => {
+      const beerstyle = await sut.getAll();
+
+      expect(Array.isArray(beerstyle)).toBe(true);
+      expect(beerstyle.length).toBe(0);
+    });
   });
 
-  test("should return an empty array of beerstyle", async () => {
-    const beerstyle = await sut.getAll();
+  describe("GetBeerStyle Method", () => {
+    test("should return an beerstyle", async () => {
+      const mockedInsert = await repository.save(makeBeerStyleDTO());
 
-    expect(Array.isArray(beerstyle)).toBe(true);
-    expect(beerstyle.length).toBe(0);
+      const beerstyle = await sut.get(mockedInsert.id);
+
+      expect(beerstyle).toEqual(mockedInsert);
+    });
+
+    test("should return null if beerStyle not exists", async () => {
+      const beerstyle = await sut.get("0cef8e10-7c27-11ed-a1eb-0242ac120002");
+
+      expect(beerstyle).toBe(null);
+    });
   });
 });
