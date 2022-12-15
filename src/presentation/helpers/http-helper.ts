@@ -21,3 +21,10 @@ export const created = (body: any): IHttpResponse => {
     body
   };
 };
+
+export const ok = (body: any): IHttpResponse => {
+  return {
+    statusCode: 200,
+    body
+  };
+};
