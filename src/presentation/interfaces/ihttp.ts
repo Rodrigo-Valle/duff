@@ -4,5 +4,6 @@ export interface IHttpResponse {
 }
 
 export interface IHttpRequest {
+  params?: any;
   body?: any;
 }

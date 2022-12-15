@@ -21,4 +21,14 @@ export class BeerStyleRepository implements IBeerStyleRepository {
 
     return beerstyles;
   }
+
+  async get(id: string): Promise<BeerStyle | null> {
+    const beerstyle = await this.beerstyleRepository.findOne({
+      where: {
+        id
+      }
+    });
+
+    return beerstyle;
+  }
 }

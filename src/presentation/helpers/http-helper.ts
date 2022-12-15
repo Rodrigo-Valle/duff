@@ -8,6 +8,13 @@ export const badRequest = (error: Error): IHttpResponse => {
   };
 };
 
+export const notFound = (): IHttpResponse => {
+  return {
+    statusCode: 404,
+    body: { message: "Não encontrado" }
+  };
+};
+
 export const serverError = (): IHttpResponse => {
   return {
     statusCode: 500,
