@@ -11,7 +11,7 @@ export const badRequest = (error: Error): IHttpResponse => {
 export const notFound = (): IHttpResponse => {
   return {
     statusCode: 404,
-    body: "Não encontrado"
+    body: { message: "Não encontrado" }
   };
 };
 

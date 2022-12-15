@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node ./dist/main",
-    "dev": "ts-node ./src/main",
+    "dev": "npm run build && ts-node ./src/main",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "lint": "eslint . --fix && prettier -w .",
     "test": "jest --passWithNoTests --no-cache --runInBand",
