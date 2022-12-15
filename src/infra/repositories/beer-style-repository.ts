@@ -2,7 +2,7 @@ import { SaveBeerStyleDTO, IBeerStyleRepository } from "@/domain/interfaces";
 import { BeerStyle } from "@/domain/models";
 import { BeerStyleDBEntity } from "@/infra/entities";
 
-import { DataSource } from "typeorm";
+import { DataSource, DeleteResult } from "typeorm";
 
 export class BeerStyleRepository implements IBeerStyleRepository {
   private readonly beerstyleRepository;
@@ -28,6 +28,12 @@ export class BeerStyleRepository implements IBeerStyleRepository {
         id
       }
     });
+
+    return beerstyle;
+  }
+
+  async remove(id: string): Promise<DeleteResult> {
+    const beerstyle = await this.beerstyleRepository.delete(id);
 
     return beerstyle;
   }
