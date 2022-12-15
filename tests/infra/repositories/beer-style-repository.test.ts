@@ -79,4 +79,14 @@ describe("BeerStyleRepository tests", () => {
       expect(beerstyle).toBe(null);
     });
   });
+
+  describe("GetBeerStyle Method", () => {
+    test("should remove an beerstyle", async () => {
+      const mockedInsert = await repository.save(makeBeerStyleDTO());
+
+      const beerstyle = await sut.remove(mockedInsert.id);
+
+      expect(beerstyle.affected).toEqual(1);
+    });
+  });
 });

@@ -1,5 +1,6 @@
 import { SaveBeerStyleDTO, IBeerStyleRepository } from "@/domain/interfaces";
 import { BeerStyle } from "@/domain/models";
+import { DeleteResult } from "typeorm";
 
 export const repoReturn = {
   id: "any_id",
@@ -18,6 +19,8 @@ export const throwError = (): never => {
   throw new Error();
 };
 
+export const makeDeleteResult = (): DeleteResult => new DeleteResult();
+
 export const makeBeerStyleRepository = (): IBeerStyleRepository => {
   class BeerStyleRepositoryStub implements IBeerStyleRepository {
     async save(_saveBeerStyleDTO: SaveBeerStyleDTO): Promise<BeerStyle> {
@@ -30,6 +33,12 @@ export const makeBeerStyleRepository = (): IBeerStyleRepository => {
 
     async findOne(_id: string): Promise<BeerStyle | null> {
       return await Promise.resolve(repoReturn);
+    }
+
+    async remove(_id: string): Promise<DeleteResult> {
+      const deleteResult = makeDeleteResult();
+      deleteResult.affected = 1;
+      return await Promise.resolve(deleteResult);
     }
   }
 
