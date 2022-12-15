@@ -1,4 +1,4 @@
-import { AddBeerStyleDTO, IBeerStyleRepository } from "@/domain/interfaces";
+import { SaveBeerStyleDTO, IBeerStyleRepository } from "@/domain/interfaces";
 import { BeerStyle } from "@/domain/models";
 import { BeerStyleDBEntity } from "@/infra/entities";
 
@@ -11,8 +11,8 @@ export class BeerStyleRepository implements IBeerStyleRepository {
     this.beerstyleRepository = datasource.getRepository(BeerStyleDBEntity);
   }
 
-  async save(addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
-    const beerstyle = await this.beerstyleRepository.save(addBeerStyleDTO);
+  async save(saveBeerStyleDTO: SaveBeerStyleDTO): Promise<BeerStyle> {
+    const beerstyle = await this.beerstyleRepository.save(saveBeerStyleDTO);
     return beerstyle;
   }
 

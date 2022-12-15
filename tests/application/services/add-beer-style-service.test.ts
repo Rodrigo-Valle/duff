@@ -1,7 +1,7 @@
 import { AddBeerStyleService } from "@/application/services";
 import { IBeerStyleRepository } from "@/domain/interfaces";
 import {
-  addBeerStyleDTO,
+  saveBeerStyleDTO,
   makeBeerStyleRepository,
   repoReturn,
   throwError
@@ -22,21 +22,21 @@ describe("AddBeerStyleService Tests", () => {
   test("Should Call BeerStyleRepository with correct values", async () => {
     const addSpy = jest.spyOn(beerstyleRepositoryStub, "save");
 
-    await sut.add(addBeerStyleDTO);
+    await sut.add(saveBeerStyleDTO);
 
-    expect(addSpy).toHaveBeenCalledWith(addBeerStyleDTO);
+    expect(addSpy).toHaveBeenCalledWith(saveBeerStyleDTO);
   });
 
   test("Should throw if BeerStyleRepository throws", async () => {
     jest.spyOn(beerstyleRepositoryStub, "save").mockImplementationOnce(throwError);
 
-    const promise = sut.add(addBeerStyleDTO);
+    const promise = sut.add(saveBeerStyleDTO);
 
     await expect(promise).rejects.toThrow();
   });
 
   test("Should return an beerstyle on success", async () => {
-    const result = await sut.add(addBeerStyleDTO);
+    const result = await sut.add(saveBeerStyleDTO);
 
     expect(result).toEqual(repoReturn);
   });
