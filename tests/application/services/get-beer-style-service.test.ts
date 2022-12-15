@@ -17,7 +17,7 @@ describe("GetBeerStyleService Tests", () => {
   });
 
   test("Should Call BeerStyleRepository", async () => {
-    const getSpy = jest.spyOn(beerstyleRepositoryStub, "get");
+    const getSpy = jest.spyOn(beerstyleRepositoryStub, "findOne");
 
     await sut.get(id);
 
@@ -25,7 +25,7 @@ describe("GetBeerStyleService Tests", () => {
   });
 
   test("Should throw if BeerStyleRepository throws", async () => {
-    jest.spyOn(beerstyleRepositoryStub, "get").mockImplementationOnce(throwError);
+    jest.spyOn(beerstyleRepositoryStub, "findOne").mockImplementationOnce(throwError);
 
     const promise = sut.get(id);
 
