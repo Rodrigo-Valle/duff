@@ -20,7 +20,7 @@ describe("AddBeerStyleService Tests", () => {
   });
 
   test("Should Call BeerStyleRepository with correct values", async () => {
-    const addSpy = jest.spyOn(beerstyleRepositoryStub, "add");
+    const addSpy = jest.spyOn(beerstyleRepositoryStub, "save");
 
     await sut.add(addBeerStyleDTO);
 
@@ -28,7 +28,7 @@ describe("AddBeerStyleService Tests", () => {
   });
 
   test("Should throw if BeerStyleRepository throws", async () => {
-    jest.spyOn(beerstyleRepositoryStub, "add").mockImplementationOnce(throwError);
+    jest.spyOn(beerstyleRepositoryStub, "save").mockImplementationOnce(throwError);
 
     const promise = sut.add(addBeerStyleDTO);
 

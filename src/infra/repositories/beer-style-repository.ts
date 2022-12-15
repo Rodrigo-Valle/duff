@@ -11,18 +11,18 @@ export class BeerStyleRepository implements IBeerStyleRepository {
     this.beerstyleRepository = datasource.getRepository(BeerStyleDBEntity);
   }
 
-  async add(addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
+  async save(addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
     const beerstyle = await this.beerstyleRepository.save(addBeerStyleDTO);
     return beerstyle;
   }
 
-  async getAll(): Promise<BeerStyle[]> {
+  async findAll(): Promise<BeerStyle[]> {
     const beerstyles = await this.beerstyleRepository.find();
 
     return beerstyles;
   }
 
-  async get(id: string): Promise<BeerStyle | null> {
+  async findOne(id: string): Promise<BeerStyle | null> {
     const beerstyle = await this.beerstyleRepository.findOne({
       where: {
         id

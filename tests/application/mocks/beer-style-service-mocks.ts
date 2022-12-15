@@ -20,15 +20,15 @@ export const throwError = (): never => {
 
 export const makeBeerStyleRepository = (): IBeerStyleRepository => {
   class BeerStyleRepositoryStub implements IBeerStyleRepository {
-    async add(_addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
+    async save(_addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
       return await Promise.resolve(repoReturn);
     }
 
-    async getAll(): Promise<BeerStyle[]> {
+    async findAll(): Promise<BeerStyle[]> {
       return await Promise.resolve([repoReturn]);
     }
 
-    async get(_id: string): Promise<BeerStyle | null> {
+    async findOne(_id: string): Promise<BeerStyle | null> {
       return await Promise.resolve(repoReturn);
     }
   }
