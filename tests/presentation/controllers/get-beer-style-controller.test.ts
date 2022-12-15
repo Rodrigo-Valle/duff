@@ -58,6 +58,6 @@ describe("GetBeerStyleController", () => {
     const result = await sut.handle(getRequestMock);
 
     expect(result.statusCode).toBe(404);
-    expect(result.body).toEqual("Não encontrado");
+    expect(result.body).toEqual({ message: "Não encontrado" });
   });
 });
