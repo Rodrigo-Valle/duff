@@ -8,11 +8,13 @@ interface mockedDbConnection {
   dataSource: DataSource;
 }
 
-export const addBeerStyleDTO = {
+export const makeBeerStyleDTO = (): any => ({
   name: "any_name",
   minTemperature: 0,
   maxTemperature: 10
-};
+});
+
+export const addBeerStyleDTOArray = [makeBeerStyleDTO(), makeBeerStyleDTO()];
 
 export const makemockedDbConnection = (entities: any[]): mockedDbConnection => {
   const db = newDb({ autoCreateForeignKeyIndices: true });

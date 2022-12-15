@@ -2,18 +2,20 @@
 import { BeerStyleDBEntity } from "@/infra/entities";
 import { BeerStyleRepository } from "@/infra/repositories";
 import {
-  addBeerStyleDTO,
+  addBeerStyleDTOArray,
+  makeBeerStyleDTO,
   makemockedDbConnection
 } from "@/tests/infra/mocks/beer-style-repository-mocks";
 
 import { IBackup, IMemoryDb } from "pg-mem";
-import { DataSource } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 
 describe("BeerStyleRepository tests", () => {
   let sut: BeerStyleRepository;
   let backup: IBackup;
   let db: IMemoryDb;
   let dataSource: DataSource;
+  let repository: Repository<BeerStyleDBEntity>;
 
   beforeAll(async () => {
     const mockedDbConnection = makemockedDbConnection([BeerStyleDBEntity]);
@@ -24,6 +26,7 @@ describe("BeerStyleRepository tests", () => {
     await dataSource.initialize();
     await dataSource.synchronize();
     backup = db.backup();
+    repository = dataSource.getRepository(BeerStyleDBEntity);
   });
 
   afterAll(async () => {
@@ -35,11 +38,25 @@ describe("BeerStyleRepository tests", () => {
     sut = new BeerStyleRepository(dataSource);
   });
 
-  describe("Add method", () => {
-    test("should create and return a beerstyle", async () => {
-      const beerstyle = await sut.add(addBeerStyleDTO);
+  test("should create and return a beerstyle", async () => {
+    const beerstyle = await sut.add(makeBeerStyleDTO());
 
-      expect(beerstyle.id).toBeTruthy();
-    });
+    expect(beerstyle.id).toBeTruthy();
+  });
+
+  test("should return an array of beerstyle", async () => {
+    await repository.insert(addBeerStyleDTOArray);
+
+    const beerstyle = await sut.getAll();
+
+    expect(Array.isArray(beerstyle)).toBe(true);
+    expect(beerstyle.length).toBe(2);
+  });
+
+  test("should return an empty array of beerstyle", async () => {
+    const beerstyle = await sut.getAll();
+
+    expect(Array.isArray(beerstyle)).toBe(true);
+    expect(beerstyle.length).toBe(0);
   });
 });

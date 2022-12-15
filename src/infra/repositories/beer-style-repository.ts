@@ -15,4 +15,10 @@ export class BeerStyleRepository implements IBeerStyleRepository {
     const beerstyle = await this.beerstyleRepository.save(addBeerStyleDTO);
     return beerstyle;
   }
+
+  async getAll(): Promise<BeerStyle[]> {
+    const beerstyles = await this.beerstyleRepository.find();
+
+    return beerstyles;
+  }
 }
