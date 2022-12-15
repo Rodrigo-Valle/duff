@@ -12,7 +12,12 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npm run typeorm migration:generate -- -d ./src/infra/database/pg-datasource.ts ./src/infra/database/migrations/%npm_config_migrationName%",
+    "migration:create": "npm run typeorm migration:create ./src/infra/database/migrations/%npm_config_migrationName%",
+    "migration:up": "npm run typeorm migration:run -- -d ./src/infra/database/pg-datasource.ts",
+    "migration:down": "npm run typeorm migration:revert -- -d ./src/infra/database/pg-datasource.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "BeerStyle" })
+@Entity({ name: "beer-style" })
 export class BeerStyleDBEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
