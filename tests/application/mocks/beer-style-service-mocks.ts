@@ -19,8 +19,7 @@ export const throwError = (): never => {
   throw new Error();
 };
 
-export const deleteResult = new DeleteResult();
-deleteResult.affected = 1;
+export const makeDeleteResult = (): DeleteResult => new DeleteResult();
 
 export const makeBeerStyleRepository = (): IBeerStyleRepository => {
   class BeerStyleRepositoryStub implements IBeerStyleRepository {
@@ -37,6 +36,8 @@ export const makeBeerStyleRepository = (): IBeerStyleRepository => {
     }
 
     async remove(_id: string): Promise<DeleteResult> {
+      const deleteResult = makeDeleteResult();
+      deleteResult.affected = 1;
       return await Promise.resolve(deleteResult);
     }
   }
