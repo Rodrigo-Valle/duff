@@ -2,6 +2,7 @@ import { BeerStyle } from "@/domain/models";
 
 export interface IBeerStyleRepository {
   add: (addBeerStyleDTO: AddBeerStyleDTO) => Promise<BeerStyle>;
+  getAll: () => Promise<BeerStyle[]>;
 }
 
 export interface AddBeerStyleDTO {

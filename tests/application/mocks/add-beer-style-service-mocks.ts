@@ -23,6 +23,10 @@ export const makeBeerStyleRepository = (): IBeerStyleRepository => {
     async add(addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
       return await Promise.resolve(repoReturn);
     }
+
+    async getAll(): Promise<BeerStyle[]> {
+      return await Promise.resolve([repoReturn]);
+    }
   }
 
   return new BeerStyleRepositoryStub();
