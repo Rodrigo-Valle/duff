@@ -1,9 +1,10 @@
 {
   "name": "duff",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Aplicacao para indicacao de melhor estilo de cerveja e playlist para acompanhamento, de acordo com temperatura desejada",
   "main": "index.js",
   "scripts": {
+    "prestart": "npm run build",
     "start": "node ./dist/main",
     "dev": "npm run build && ts-node ./src/main",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
@@ -11,7 +12,11 @@
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:staged": "npm test -- --findRelatedTests",
     "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --coverage",
+    "test:cover": "npm test -- --coverage",
+    "pretest:integ": "npm run pgtest:up",
+    "test:integ": "npm test -- -c ./jest.integration.config.js --coverage",
+    "posttest:integ": "npm run pgtest:down",
+    "test:all": "npm run test:cover && npm run test:integ",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm migration:generate -- -d ./src/infra/database/pg-datasource.ts ./src/infra/database/migrations/%npm_config_migrationName%",
     "migration:create": "npm run typeorm migration:create ./src/infra/database/migrations/%npm_config_migrationName%",
@@ -21,8 +26,8 @@
     "docker:run": "docker compose up -d",
     "postgres:up": "docker-compose -f docker-compose.postgres.yml up -d",
     "postgres:down": "docker-compose -f docker-compose.postgres.yml down",
-    "pgtest:up": "docker-compose -f docker-compose.tests.yml up -d",
-    "pgtest:down": "docker-compose -f docker-compose.tests.yml down"
+    "pgtest:up": "docker-compose -f docker-compose.postgres.tests.yml up -d",
+    "pgtest:down": "docker-compose -f docker-compose.postgres.tests.yml down"
   },
   "keywords": [],
   "author": "",
