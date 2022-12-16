@@ -16,23 +16,21 @@ describe("AddBeerStyleRoute Test", () => {
     await PostgresDataSource.destroy();
   });
 
-  describe("DB tests", () => {
-    afterEach(async () => {
-      await repository.clear();
+  afterEach(async () => {
+    await repository.clear();
+  });
+
+  it("Should return 201", async () => {
+    const response = await request(app).post("/api/beer").send({
+      name: "teste",
+      minTemperature: 1,
+      maxTemperature: 10
     });
 
-    it("Should return 201", async () => {
-      const response = await request(app).post("/api/beer").send({
-        name: "teste",
-        minTemperature: 1,
-        maxTemperature: 10
-      });
-
-      expect(response.status).toBe(201);
-      expect(response.body.id).toBeTruthy();
-      expect(response.body.name).toBe("teste");
-      expect(response.body.minTemperature).toBe(1);
-      expect(response.body.maxTemperature).toBe(10);
-    });
+    expect(response.status).toBe(201);
+    expect(response.body.id).toBeTruthy();
+    expect(response.body.name).toBe("teste");
+    expect(response.body.minTemperature).toBe(1);
+    expect(response.body.maxTemperature).toBe(10);
   });
 });

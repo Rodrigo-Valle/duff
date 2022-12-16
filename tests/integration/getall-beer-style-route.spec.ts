@@ -1,7 +1,6 @@
 import { PostgresDataSource } from "@/infra/database/pg-datasource";
 import { BeerStyleDBEntity } from "@/infra/entities";
 import { app } from "@/main/config/app";
-import { randomUUID } from "crypto";
 import request from "supertest";
 import { Repository } from "typeorm";
 
@@ -22,25 +21,29 @@ describe("GetBeerStyleRoute Test", () => {
   });
 
   it("Should return 200", async () => {
-    const beerStyle = await repository.save({
-      name: "teste",
-      minTemperature: 1,
-      maxTemperature: 10
-    });
+    await repository.save([
+      {
+        name: "teste",
+        minTemperature: 1,
+        maxTemperature: 10
+      },
+      {
+        name: "teste2",
+        minTemperature: -5,
+        maxTemperature: 3
+      }
+    ]);
 
-    const response = await request(app).get(`/api/beer/${beerStyle.id}`).send();
+    const response = await request(app).get("/api/beer").send();
 
     expect(response.status).toBe(200);
-    expect(response.body.id).toBe(beerStyle.id);
-    expect(response.body.name).toBe("teste");
-    expect(response.body.minTemperature).toBe(1);
-    expect(response.body.maxTemperature).toBe(10);
+    expect(response.body.length).toBe(2);
   });
 
-  it("Should return 404 if notFound", async () => {
-    const response = await request(app).get(`/api/beer/${randomUUID()}`).send();
+  it("Should return 200 if and an empty array if notFound", async () => {
+    const response = await request(app).get("/api/beer").send();
 
-    expect(response.status).toBe(404);
-    expect(response.body).toEqual({ error: "Não encontrado" });
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
   });
 });
