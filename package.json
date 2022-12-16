@@ -1,10 +1,10 @@
 {
   "name": "duff",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Aplicacao para indicacao de melhor estilo de cerveja e playlist para acompanhamento, de acordo com temperatura desejada",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node ./dist/main",
+    "start": "node ./dist/main",
     "dev": "npm run build && ts-node ./src/main",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "lint": "eslint . --fix && prettier -w .",
@@ -12,17 +12,24 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
-    "prepare": "husky install",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm migration:generate -- -d ./src/infra/database/pg-datasource.ts ./src/infra/database/migrations/%npm_config_migrationName%",
     "migration:create": "npm run typeorm migration:create ./src/infra/database/migrations/%npm_config_migrationName%",
     "migration:up": "npm run typeorm migration:run -- -d ./src/infra/database/pg-datasource.ts",
-    "migration:down": "npm run typeorm migration:revert -- -d ./src/infra/database/pg-datasource.ts"
+    "migration:down": "npm run typeorm migration:revert -- -d ./src/infra/database/pg-datasource.ts",
+    "docker:build": "docker build -t duff . ",
+    "docker:run": "docker compose up -d",
+    "postgres:up": "docker-compose -f docker-compose.postgres.yml up -d",
+    "postgres:down": "docker-compose -f docker-compose.postgres.yml down",
+    "pgtest:up": "docker-compose -f docker-compose.tests.yml up -d",
+    "pgtest:down": "docker-compose -f docker-compose.tests.yml down"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
     "@types/jest": "^29.2.4",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^18.11.13",
@@ -40,8 +47,6 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@types/cors": "^2.8.13",
-    "@types/express": "^4.17.15",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
