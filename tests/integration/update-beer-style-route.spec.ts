@@ -6,7 +6,7 @@ import request from "supertest";
 import { randomUUID } from "crypto";
 import { Repository } from "typeorm";
 
-describe("GetBeerStyleRoute Test", () => {
+describe("UpdateBeerStyleRoute Test", () => {
   let repository: Repository<BeerStyleDBEntity>;
 
   beforeAll(async () => {
@@ -29,17 +29,21 @@ describe("GetBeerStyleRoute Test", () => {
       maxTemperature: 10
     });
 
-    const response = await request(app).get(`/api/beer/${beerStyle.id}`).send();
+    const response = await request(app).patch(`/api/beer/${beerStyle.id}`).send({
+      name: "update_teste",
+      minTemperature: -5,
+      maxTemperature: 5
+    });
 
     expect(response.status).toBe(200);
     expect(response.body.id).toBe(beerStyle.id);
-    expect(response.body.name).toBe("teste");
-    expect(response.body.minTemperature).toBe(1);
-    expect(response.body.maxTemperature).toBe(10);
+    expect(response.body.name).toBe("update_teste");
+    expect(response.body.minTemperature).toBe(-5);
+    expect(response.body.maxTemperature).toBe(5);
   });
 
   it("Should return 404 if notFound", async () => {
-    const response = await request(app).get(`/api/beer/${randomUUID()}`).send();
+    const response = await request(app).patch(`/api/beer/${randomUUID()}`).send();
 
     expect(response.status).toBe(404);
     expect(response.body).toEqual({ error: "Não encontrado" });
