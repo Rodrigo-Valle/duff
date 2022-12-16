@@ -9,7 +9,5 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=duff-test
       - PGDATA=/data/postgres
-    volumes:
-      - ./data:/data/postgres
     ports:
       - "5432:5432"
