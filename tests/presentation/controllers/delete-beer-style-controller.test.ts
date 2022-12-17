@@ -1,7 +1,7 @@
 import { IDeleteBeerStyleService } from "@/application/interfaces";
 import { deleteRequestMock, makeDeleteBeerStyleService } from "@/tests/presentation/mocks";
 import { DeleteBeerStyleController } from "@/presentation/controller";
-import { MissinParamError, ServerError } from "@/presentation/errors";
+import { ServerError } from "@/presentation/errors";
 
 describe("DeleteBeerStyleController", () => {
   let sut: DeleteBeerStyleController;
@@ -13,15 +13,6 @@ describe("DeleteBeerStyleController", () => {
 
   beforeEach(() => {
     sut = new DeleteBeerStyleController(deleteBeerStyleService);
-  });
-
-  test("Should return 400 if id is not informed", async () => {
-    const httpRequest = {};
-
-    const result = await sut.handle(httpRequest);
-
-    expect(result.statusCode).toBe(400);
-    expect(result.body).toEqual(new MissinParamError("id"));
   });
 
   test("Should Call DeleteBeerStyleService with correct params", async () => {

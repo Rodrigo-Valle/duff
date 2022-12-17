@@ -1,10 +1,12 @@
 import { IHttpResponse } from "@/presentation/interfaces";
 import { ServerError } from "@/presentation/errors";
 
-export const badRequest = (error: Error): IHttpResponse => {
+export const badRequest = (message: string | string[]): IHttpResponse => {
   return {
     statusCode: 400,
-    body: error
+    body: {
+      message
+    }
   };
 };
 
