@@ -8,7 +8,7 @@
     "start": "node ./dist/main",
     "dev": "npm run build && ts-node ./src/main",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
-    "lint": "eslint . --fix && prettier -w .",
+    "lint": "prettier -w . && eslint . --fix",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:staged": "npm test -- --findRelatedTests",
     "test:watch": "npm test -- --watch",
