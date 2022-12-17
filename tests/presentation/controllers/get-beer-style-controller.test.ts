@@ -5,7 +5,7 @@ import {
   makeGetBeerStyleService
 } from "@/tests/presentation/mocks";
 import { GetBeerStyleController } from "@/presentation/controller";
-import { ServerError } from "@/presentation/errors";
+import { MissinParamError, ServerError } from "@/presentation/errors";
 
 describe("GetBeerStyleController", () => {
   let sut: GetBeerStyleController;
@@ -17,6 +17,15 @@ describe("GetBeerStyleController", () => {
 
   beforeEach(() => {
     sut = new GetBeerStyleController(getBeerStyleService);
+  });
+
+  test("Should return 400 if id is not informed", async () => {
+    const httpRequest = {};
+
+    const result = await sut.handle(httpRequest);
+
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual(new MissinParamError("id"));
   });
 
   test("Should Call GetBeerStyleService with correct params", async () => {
