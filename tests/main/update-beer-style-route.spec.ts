@@ -43,9 +43,13 @@ describe("UpdateBeerStyleRoute Test", () => {
   });
 
   it("Should return 404 if notFound", async () => {
-    const response = await request(app).patch(`/api/beer/${randomUUID()}`).send();
+    const response = await request(app).patch(`/api/beer/${randomUUID()}`).send({
+      name: "teste",
+      minTemperature: 1,
+      maxTemperature: 10
+    });
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ error: "Não encontrado" });
+    expect(response.body).toEqual({ error: { message: "Não encontrado" } });
   });
 });
