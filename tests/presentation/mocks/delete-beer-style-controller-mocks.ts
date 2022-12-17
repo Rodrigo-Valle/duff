@@ -1,17 +1,17 @@
-import { IDeleteBeerStyleService } from "@/application/interfaces";
+import { DeleteBeerStyle } from "@/domain/usecases";
 
-export const deleteServiceResponseMock: number = 1;
+export const deleteServiceResponse: number = 1;
 
-export const deleteRequestMock = {
+export const deleteRequest = {
   params: {
     id: "any_id"
   }
 };
 
-export const makeDeleteBeerStyleService = (): IDeleteBeerStyleService => {
-  class DeleteBeerStyleService implements IDeleteBeerStyleService {
+export const makeDeleteBeerStyleService = (): DeleteBeerStyle => {
+  class DeleteBeerStyleService implements DeleteBeerStyle {
     async delete(_id: string): Promise<number | null> {
-      return await Promise.resolve(deleteServiceResponseMock);
+      return await Promise.resolve(deleteServiceResponse);
     }
   }
   return new DeleteBeerStyleService();

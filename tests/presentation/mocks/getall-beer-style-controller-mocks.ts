@@ -1,7 +1,7 @@
 import { BeerStyle } from "@/domain/models";
-import { IGetAllBeerStyleService } from "@/application/interfaces";
+import { GetAllBeerStyle } from "@/domain/usecases";
 
-export const getAllServiceResponseMock: BeerStyle[] = [
+export const getAllServiceResponse: BeerStyle[] = [
   {
     id: "1",
     name: "any_name",
@@ -10,14 +10,14 @@ export const getAllServiceResponseMock: BeerStyle[] = [
   }
 ];
 
-export const getAllRequestMock = {
+export const getAllRequest = {
   body: undefined
 };
 
-export const makeGetAllBeerStyleService = (): IGetAllBeerStyleService => {
-  class GetAllBeerStyleService implements IGetAllBeerStyleService {
+export const makeGetAllBeerStyleService = (): GetAllBeerStyle => {
+  class GetAllBeerStyleService implements GetAllBeerStyle {
     async getAll(): Promise<BeerStyle[]> {
-      return await Promise.resolve(getAllServiceResponseMock);
+      return await Promise.resolve(getAllServiceResponse);
     }
   }
   return new GetAllBeerStyleService();

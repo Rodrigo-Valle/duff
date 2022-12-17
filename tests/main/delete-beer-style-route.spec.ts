@@ -33,7 +33,7 @@ describe("DeleteBeerStyleRoute Test", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      message: "Estilo(s) removido(s) com sucesso, quantidade removida: 1"
+      message: "Estilo removido com sucesso"
     });
   });
 

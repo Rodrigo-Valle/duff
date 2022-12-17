@@ -15,5 +15,3 @@ PostgresDataSource.initialize()
   .catch((e) => {
     console.error(e);
   });
-
-// init

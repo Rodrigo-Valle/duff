@@ -1,1 +1,1 @@
-export * from "./beer-style-repository";
+export * from "./pg-beer-style.repository";

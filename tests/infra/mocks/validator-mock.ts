@@ -1,6 +1,6 @@
-import { IValidator } from "../interfaces/ivalidator";
+import { IValidator } from "@/infra/interfaces";
 
-export const makeValidatorMock = (): IValidator => {
+export const makeValidatorStub = (): IValidator => {
   class ValidatorStub implements IValidator {
     isValid(_body: any): undefined | string | string[] {
       return undefined;

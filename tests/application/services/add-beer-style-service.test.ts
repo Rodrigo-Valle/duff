@@ -1,26 +1,26 @@
 import { AddBeerStyleService } from "@/application/services";
-import { IBeerStyleRepository } from "@/domain/interfaces";
+import { BeerStyleRepository } from "@/application/interfaces";
 import {
   saveBeerStyleDTO,
   makeBeerStyleRepository,
-  repoReturn,
+  repositoryReturn,
   throwError
 } from "@/tests/application/mocks";
 
 describe("AddBeerStyleService Tests", () => {
   let sut: AddBeerStyleService;
-  let beerstyleRepositoryStub: IBeerStyleRepository;
+  let repositoryStub: BeerStyleRepository;
 
   beforeAll(() => {
-    beerstyleRepositoryStub = makeBeerStyleRepository();
+    repositoryStub = makeBeerStyleRepository();
   });
 
   beforeEach(() => {
-    sut = new AddBeerStyleService(beerstyleRepositoryStub);
+    sut = new AddBeerStyleService(repositoryStub);
   });
 
   test("Should Call BeerStyleRepository with correct values", async () => {
-    const addSpy = jest.spyOn(beerstyleRepositoryStub, "save");
+    const addSpy = jest.spyOn(repositoryStub, "save");
 
     await sut.add(saveBeerStyleDTO);
 
@@ -28,7 +28,7 @@ describe("AddBeerStyleService Tests", () => {
   });
 
   test("Should throw if BeerStyleRepository throws", async () => {
-    jest.spyOn(beerstyleRepositoryStub, "save").mockImplementationOnce(throwError);
+    jest.spyOn(repositoryStub, "save").mockImplementationOnce(throwError);
 
     const promise = sut.add(saveBeerStyleDTO);
 
@@ -38,6 +38,6 @@ describe("AddBeerStyleService Tests", () => {
   test("Should return an beerstyle on success", async () => {
     const result = await sut.add(saveBeerStyleDTO);
 
-    expect(result).toEqual(repoReturn);
+    expect(result).toEqual(repositoryReturn);
   });
 });
