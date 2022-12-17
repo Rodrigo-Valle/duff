@@ -1,18 +1,28 @@
 import { IUpdateBeerStyleService } from "@/application/interfaces";
-import { serverError, ok, badRequest, notFound } from "@/presentation/helpers";
-import { IController, IHttpRequest, IHttpResponse } from "@/presentation/interfaces";
-import { MissinParamError } from "@/presentation/errors";
+import { serverError, ok, notFound, badRequest } from "@/presentation/helpers";
+import {
+  IController,
+  IHttpRequest,
+  IHttpResponse,
+  IValidatorAdapter
+} from "@/presentation/interfaces";
 
 export class UpdateBeerStyleController implements IController {
-  constructor(private readonly beerStyleService: IUpdateBeerStyleService) {}
+  constructor(
+    private readonly beerStyleService: IUpdateBeerStyleService,
+    private readonly validator: IValidatorAdapter
+  ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
-      if (!httpRequest.params?.id) return badRequest(new MissinParamError("id"));
-
+      const { body } = httpRequest;
       const { id } = httpRequest.params;
 
-      const beerStyle = await this.beerStyleService.update(httpRequest.body, id);
+      const isInvalid = this.validator.validate(body);
+
+      if (isInvalid) return badRequest(isInvalid);
+
+      const beerStyle = await this.beerStyleService.update(body, id);
 
       if (!beerStyle) return notFound();
 

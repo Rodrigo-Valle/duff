@@ -42,6 +42,6 @@ describe("GetBeerStyleRoute Test", () => {
     const response = await request(app).get(`/api/beer/${randomUUID()}`).send();
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ error: "Não encontrado" });
+    expect(response.body).toEqual({ error: { message: "Não encontrado" } });
   });
 });
