@@ -23,9 +23,9 @@
     "migration:up": "npm run typeorm migration:run -- -d ./src/infra/database/pg-datasource.ts",
     "migration:down": "npm run typeorm migration:revert -- -d ./src/infra/database/pg-datasource.ts",
     "docker:build": "docker build -t duff . ",
-    "docker:run": "docker compose up -d",
-    "postgres:up": "docker-compose -f docker-compose.postgres.yml up -d",
-    "postgres:down": "docker-compose -f docker-compose.postgres.yml down",
+    "pg:up": "docker-compose -f docker-compose.postgres.yml up -d",
+    "postpg:up": "npm run migration:up",
+    "pg:down": "docker-compose -f docker-compose.postgres.yml down",
     "pgtest:up": "docker-compose -f docker-compose.postgres.tests.yml up -d",
     "pgtest:down": "docker-compose -f docker-compose.postgres.tests.yml down"
   },

@@ -1,21 +1,21 @@
 import { GetAllBeerStyleService } from "@/application/services";
-import { IBeerStyleRepository } from "@/domain/interfaces";
-import { makeBeerStyleRepository, repoReturn, throwError } from "@/tests/application/mocks";
+import { BeerStyleRepository } from "@/application/interfaces";
+import { makeBeerStyleRepository, repositoryReturn, throwError } from "@/tests/application/mocks";
 
 describe("GetAllBeerStyleService Tests", () => {
   let sut: GetAllBeerStyleService;
-  let beerstyleRepositoryStub: IBeerStyleRepository;
+  let repositoryStub: BeerStyleRepository;
 
   beforeAll(() => {
-    beerstyleRepositoryStub = makeBeerStyleRepository();
+    repositoryStub = makeBeerStyleRepository();
   });
 
   beforeEach(() => {
-    sut = new GetAllBeerStyleService(beerstyleRepositoryStub);
+    sut = new GetAllBeerStyleService(repositoryStub);
   });
 
   test("Should Call BeerStyleRepository", async () => {
-    const getAllSpy = jest.spyOn(beerstyleRepositoryStub, "findAll");
+    const getAllSpy = jest.spyOn(repositoryStub, "findAll");
 
     await sut.getAll();
 
@@ -23,7 +23,7 @@ describe("GetAllBeerStyleService Tests", () => {
   });
 
   test("Should throw if BeerStyleRepository throws", async () => {
-    jest.spyOn(beerstyleRepositoryStub, "findAll").mockImplementationOnce(throwError);
+    jest.spyOn(repositoryStub, "findAll").mockImplementationOnce(throwError);
 
     const promise = sut.getAll();
 
@@ -33,6 +33,6 @@ describe("GetAllBeerStyleService Tests", () => {
   test("Should return an beerstyle on success", async () => {
     const result = await sut.getAll();
 
-    expect(result).toEqual([repoReturn]);
+    expect(result).toEqual([repositoryReturn]);
   });
 });

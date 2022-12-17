@@ -1,10 +1,10 @@
-import { JoiSchemaValidation } from "@/infra/validator/joi-validator/joi-schema-validator";
-import { updateBeerStyleSchema } from "@/infra/validator/joi-validator";
+import { JoiSchemaValidator } from "@/infra/validator";
+import { updateBeerStyleSchema } from "@/infra/validator/joiSchemas";
 
 describe("UpdateBeerStyleSchemaValidation tests", () => {
-  let sut: JoiSchemaValidation;
+  let sut: JoiSchemaValidator;
   beforeAll(() => {
-    sut = new JoiSchemaValidation(updateBeerStyleSchema);
+    sut = new JoiSchemaValidator(updateBeerStyleSchema);
   });
 
   test("Should return an string if body is empty", () => {

@@ -1,7 +1,7 @@
+import { setupRoutes } from "./router";
+
 import cors from "cors";
 import express, { json } from "express";
-
-import { setupRoutes } from "./router";
 
 const app = express();
 

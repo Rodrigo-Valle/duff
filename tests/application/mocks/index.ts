@@ -1,1 +1,1 @@
-export * from "./beer-style-service-mocks";
+export * from "./beer-style-service.mock";

@@ -1,8 +1,8 @@
-import { IAddBeerStyleService } from "@/application/interfaces";
+import { AddBeerStyle } from "@/domain/usecases";
 import {
-  addBeerStyleServiceResponseMock,
+  addBeerStyleServiceResponse,
   makeAddBeerStyleService,
-  addBeerStyleRequestMock,
+  addBeerStyleRequest,
   makeValidatorAdapter
 } from "@/tests/presentation/mocks";
 import { AddBeerStyleController } from "@/presentation/controller";
@@ -11,56 +11,56 @@ import { IValidatorAdapter } from "@/presentation/interfaces";
 
 describe("AddBeerStyleController", () => {
   let sut: AddBeerStyleController;
-  let addBeerStyleService: IAddBeerStyleService;
+  let serviceStub: AddBeerStyle;
   let validator: IValidatorAdapter;
 
   beforeAll(() => {
-    addBeerStyleService = makeAddBeerStyleService();
+    serviceStub = makeAddBeerStyleService();
     validator = makeValidatorAdapter();
   });
 
   beforeEach(() => {
-    sut = new AddBeerStyleController(addBeerStyleService, validator);
+    sut = new AddBeerStyleController(serviceStub, validator);
   });
 
   test("Should return 400 if validator returns an error", async () => {
-    jest.spyOn(validator, "validate").mockReturnValueOnce("teste");
+    jest.spyOn(validator, "validate").mockReturnValueOnce("error");
 
-    const result = await sut.handle(addBeerStyleRequestMock);
+    const result = await sut.handle(addBeerStyleRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toEqual({ message: "teste" });
+    expect(result.body).toEqual({ message: "error" });
   });
 
   test("Should Call Validator with correct values", async () => {
     const addSpy = jest.spyOn(validator, "validate");
 
-    await sut.handle(addBeerStyleRequestMock);
+    await sut.handle(addBeerStyleRequest);
 
-    expect(addSpy).toHaveBeenCalledWith(addBeerStyleRequestMock.body);
+    expect(addSpy).toHaveBeenCalledWith(addBeerStyleRequest.body);
   });
 
   test("Should Call AddBeerStyleService with correct values", async () => {
-    const addSpy = jest.spyOn(addBeerStyleService, "add");
+    const addSpy = jest.spyOn(serviceStub, "add");
 
-    await sut.handle(addBeerStyleRequestMock);
+    await sut.handle(addBeerStyleRequest);
 
-    expect(addSpy).toHaveBeenCalledWith(addBeerStyleRequestMock.body);
+    expect(addSpy).toHaveBeenCalledWith(addBeerStyleRequest.body);
   });
 
   test("Should return 500 if AddBeerStyleService throws", async () => {
-    jest.spyOn(addBeerStyleService, "add").mockRejectedValueOnce(new Error("service error"));
+    jest.spyOn(serviceStub, "add").mockRejectedValueOnce(new Error("service error"));
 
-    const result = await sut.handle(addBeerStyleRequestMock);
+    const result = await sut.handle(addBeerStyleRequest);
 
     expect(result.statusCode).toBe(500);
     expect(result.body).toEqual(new ServerError());
   });
 
   test("Should return 201 if success", async () => {
-    const result = await sut.handle(addBeerStyleRequestMock);
+    const result = await sut.handle(addBeerStyleRequest);
 
     expect(result.statusCode).toBe(201);
-    expect(result.body).toEqual(addBeerStyleServiceResponseMock);
+    expect(result.body).toEqual(addBeerStyleServiceResponse);
   });
 });

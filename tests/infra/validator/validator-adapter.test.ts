@@ -1,13 +1,13 @@
 import { ValidatorAdapter } from "@/infra/validator";
 import { IValidator } from "@/infra/interfaces";
-import { makeValidatorMock } from "@/tests/infra/mocks/validator-mock";
+import { makeValidatorStub } from "@/tests/infra/mocks";
 
 describe("ValidatorAdapter tests", () => {
   let sut: ValidatorAdapter;
   let validator: IValidator;
 
   beforeAll(() => {
-    validator = makeValidatorMock();
+    validator = makeValidatorStub();
     sut = new ValidatorAdapter(validator);
   });
 
