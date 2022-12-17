@@ -2,42 +2,93 @@ import { IAddBeerStyleService } from "@/application/interfaces";
 import {
   addBeerStyleServiceResponseMock,
   makeAddBeerStyleService,
-  addBeerStyleRequestMock,
-  makeValidatorAdapter
+  addBeerStyleRequestMock
 } from "@/tests/presentation/mocks";
 import { AddBeerStyleController } from "@/presentation/controller";
-import { ServerError } from "@/presentation/errors";
-import { IValidatorAdapter } from "@/presentation/interfaces";
+import { MissinParamError, IsNotANumberError, ServerError } from "@/presentation/errors";
 
 describe("AddBeerStyleController", () => {
   let sut: AddBeerStyleController;
   let addBeerStyleService: IAddBeerStyleService;
-  let validator: IValidatorAdapter;
 
   beforeAll(() => {
     addBeerStyleService = makeAddBeerStyleService();
-    validator = makeValidatorAdapter();
   });
 
   beforeEach(() => {
-    sut = new AddBeerStyleController(addBeerStyleService, validator);
+    sut = new AddBeerStyleController(addBeerStyleService);
   });
 
-  test("Should return 400 if validator returns an error", async () => {
-    jest.spyOn(validator, "validate").mockReturnValueOnce("teste");
+  test("Should return 400 if name is not provided", async () => {
+    const httpRequest = {
+      body: {
+        minTemperature: "0",
+        maxTemperature: "1"
+      }
+    };
 
-    const result = await sut.handle(addBeerStyleRequestMock);
+    const result = await sut.handle(httpRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toEqual({ message: "teste" });
+    expect(result.body).toEqual(new MissinParamError("name"));
   });
 
-  test("Should Call Validator with correct values", async () => {
-    const addSpy = jest.spyOn(validator, "validate");
+  test("Should return 400 if minTemperature is not provided", async () => {
+    const httpRequest = {
+      body: {
+        name: "any_name",
+        maxTemperature: "1"
+      }
+    };
 
-    await sut.handle(addBeerStyleRequestMock);
+    const result = await sut.handle(httpRequest);
 
-    expect(addSpy).toHaveBeenCalledWith(addBeerStyleRequestMock.body);
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual(new MissinParamError("minTemperature"));
+  });
+
+  test("Should return 400 if maxTemperature is not provided ", async () => {
+    const httpRequest = {
+      body: {
+        name: "any_name",
+        minTemperature: "0"
+      }
+    };
+
+    const result = await sut.handle(httpRequest);
+
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual(new MissinParamError("maxTemperature"));
+  });
+
+  test("Should return 400 if minTemperature is not a number", async () => {
+    const httpRequest = {
+      body: {
+        name: "any_name",
+        minTemperature: "NAN",
+        maxTemperature: "10"
+      }
+    };
+
+    const result = await sut.handle(httpRequest);
+
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual(new IsNotANumberError("NAN"));
+  });
+
+  test("Should return 400 if maxTemperature is not a number", async () => {
+    const httpRequest = {
+      body: {
+        name: "any_name",
+        minTemperature: "0",
+        maxTemperature: "NAN"
+      }
+    };
+
+    const result = await sut.handle(httpRequest);
+
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toEqual(new IsNotANumberError("NAN"));
   });
 
   test("Should Call AddBeerStyleService with correct values", async () => {

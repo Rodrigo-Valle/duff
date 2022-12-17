@@ -1,26 +1,26 @@
 import { IAddBeerStyleService } from "@/application/interfaces";
+import { MissinParamError, IsNotANumberError } from "@/presentation/errors";
 import { badRequest, serverError, created } from "@/presentation/helpers";
-import {
-  IController,
-  IHttpRequest,
-  IHttpResponse,
-  IValidatorAdapter
-} from "@/presentation/interfaces";
+import { IController, IHttpRequest, IHttpResponse } from "@/presentation/interfaces";
 
 export class AddBeerStyleController implements IController {
-  constructor(
-    private readonly beerStyleService: IAddBeerStyleService,
-    private readonly validator: IValidatorAdapter
-  ) {}
+  constructor(private readonly beerStyleService: IAddBeerStyleService) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
-      const { body } = httpRequest;
-      const isInvalid = this.validator.validate(body);
+      const requiredFields = ["name", "minTemperature", "maxTemperature"];
+      for (const field of requiredFields) {
+        if (!httpRequest.body[field]) {
+          return badRequest(new MissinParamError(field));
+        }
+      }
 
-      if (isInvalid) return badRequest(isInvalid);
+      const { minTemperature, maxTemperature } = httpRequest.body;
 
-      const beerStyle = await this.beerStyleService.add(body);
+      if (isNaN(minTemperature)) return badRequest(new IsNotANumberError(minTemperature));
+      if (isNaN(maxTemperature)) return badRequest(new IsNotANumberError(maxTemperature));
+
+      const beerStyle = await this.beerStyleService.add(httpRequest.body);
 
       return created(beerStyle);
     } catch (error) {

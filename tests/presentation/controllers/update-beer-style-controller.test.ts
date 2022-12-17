@@ -2,34 +2,30 @@ import { IUpdateBeerStyleService } from "@/application/interfaces";
 import {
   updateRequestMock,
   updateServiceResponseMock,
-  makeUpdateBeerStyleService,
-  makeValidatorAdapter
+  makeUpdateBeerStyleService
 } from "@/tests/presentation/mocks";
 import { UpdateBeerStyleController } from "@/presentation/controller";
-import { ServerError } from "@/presentation/errors";
-import { IValidatorAdapter } from "../interfaces";
+import { MissinParamError, ServerError } from "@/presentation/errors";
 
 describe("UpdateBeerStyleController", () => {
   let sut: UpdateBeerStyleController;
   let updateBeerStyleService: IUpdateBeerStyleService;
-  let validator: IValidatorAdapter;
 
   beforeAll(() => {
     updateBeerStyleService = makeUpdateBeerStyleService();
-    validator = makeValidatorAdapter();
   });
 
   beforeEach(() => {
-    sut = new UpdateBeerStyleController(updateBeerStyleService, validator);
+    sut = new UpdateBeerStyleController(updateBeerStyleService);
   });
 
-  test("Should return 400 if validator returns a string", async () => {
-    jest.spyOn(validator, "validate").mockReturnValueOnce("teste");
+  test("Should return 400 if id is not informed", async () => {
+    const httpRequest = {};
 
-    const result = await sut.handle(updateRequestMock);
+    const result = await sut.handle(httpRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toEqual({ message: "teste" });
+    expect(result.body).toEqual(new MissinParamError("id"));
   });
 
   test("Should Call UpdateBeerStyleService with correct params", async () => {
