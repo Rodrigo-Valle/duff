@@ -1,23 +1,23 @@
 import { DeleteBeerStyleService } from "@/application/services";
-import { IBeerStyleRepository } from "@/domain/interfaces";
+import { BeerStyleRepository } from "@/application/interfaces";
 import { makeBeerStyleRepository, throwError, makeDeleteResult } from "@/tests/application/mocks";
 
 describe("DeleteBeerStyleService Tests", () => {
   let sut: DeleteBeerStyleService;
-  let beerstyleRepositoryStub: IBeerStyleRepository;
+  let repositoryStub: BeerStyleRepository;
   let id: string;
 
   beforeAll(() => {
-    beerstyleRepositoryStub = makeBeerStyleRepository();
+    repositoryStub = makeBeerStyleRepository();
     id = "any_id";
   });
 
   beforeEach(() => {
-    sut = new DeleteBeerStyleService(beerstyleRepositoryStub);
+    sut = new DeleteBeerStyleService(repositoryStub);
   });
 
-  test("Should Call BeerStyleRepository", async () => {
-    const deleteSpy = jest.spyOn(beerstyleRepositoryStub, "remove");
+  test("Should Call BeerStyleRepository with id", async () => {
+    const deleteSpy = jest.spyOn(repositoryStub, "remove");
 
     await sut.delete(id);
 
@@ -25,7 +25,7 @@ describe("DeleteBeerStyleService Tests", () => {
   });
 
   test("Should throw if BeerStyleRepository throws", async () => {
-    jest.spyOn(beerstyleRepositoryStub, "remove").mockImplementationOnce(throwError);
+    jest.spyOn(repositoryStub, "remove").mockImplementationOnce(throwError);
 
     const promise = sut.delete(id);
 
@@ -35,7 +35,7 @@ describe("DeleteBeerStyleService Tests", () => {
   test("Should return null if deleteResult.affected = 0", async () => {
     const deleteResult = makeDeleteResult();
     deleteResult.affected = 0;
-    jest.spyOn(beerstyleRepositoryStub, "remove").mockResolvedValueOnce(deleteResult);
+    jest.spyOn(repositoryStub, "remove").mockResolvedValueOnce(deleteResult);
 
     const result = await sut.delete(id);
 
@@ -45,7 +45,7 @@ describe("DeleteBeerStyleService Tests", () => {
   test("Should return null if deleteResult.affected = null", async () => {
     const deleteResult = makeDeleteResult();
     deleteResult.affected = null;
-    jest.spyOn(beerstyleRepositoryStub, "remove").mockResolvedValueOnce(deleteResult);
+    jest.spyOn(repositoryStub, "remove").mockResolvedValueOnce(deleteResult);
 
     const result = await sut.delete(id);
 
@@ -54,7 +54,7 @@ describe("DeleteBeerStyleService Tests", () => {
 
   test("Should return null if deleteResult.affected = undefined", async () => {
     const deleteResult = makeDeleteResult();
-    jest.spyOn(beerstyleRepositoryStub, "remove").mockResolvedValueOnce(deleteResult);
+    jest.spyOn(repositoryStub, "remove").mockResolvedValueOnce(deleteResult);
 
     const result = await sut.delete(id);
 

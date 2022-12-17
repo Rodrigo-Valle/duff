@@ -1,14 +1,14 @@
 import { BeerStyle } from "@/domain/models";
-import { AddBeerStyleDTO, IAddBeerStyleService } from "@/application/interfaces";
+import { AddBeerStyleDTO, AddBeerStyle } from "@/domain/usecases";
 
-export const addBeerStyleServiceResponseMock: BeerStyle = {
+export const addBeerStyleServiceResponse: BeerStyle = {
   id: "1",
   name: "any_name",
   minTemperature: 1,
   maxTemperature: 10
 };
 
-export const addBeerStyleRequestMock = {
+export const addBeerStyleRequest = {
   body: {
     name: "any_name",
     minTemperature: "0",
@@ -16,10 +16,10 @@ export const addBeerStyleRequestMock = {
   }
 };
 
-export const makeAddBeerStyleService = (): IAddBeerStyleService => {
-  class AddBeerStyleServiceStub implements IAddBeerStyleService {
+export const makeAddBeerStyleService = (): AddBeerStyle => {
+  class AddBeerStyleServiceStub implements AddBeerStyle {
     async add(_addBeerStyleDTO: AddBeerStyleDTO): Promise<BeerStyle> {
-      return await Promise.resolve(addBeerStyleServiceResponseMock);
+      return await Promise.resolve(addBeerStyleServiceResponse);
     }
   }
   return new AddBeerStyleServiceStub();
