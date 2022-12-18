@@ -1,14 +1,14 @@
-import "dotenv/config";
 import { join } from "path";
 import { DataSource } from "typeorm";
+import { env } from "@/main/config/env";
 
 export const PostgresDataSource = new DataSource({
   type: "postgres",
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT ?? "5432"),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.NODE_ENV === "test" ? process.env.TEST_DATABASE : process.env.DATABASE,
+  host: env.db.host,
+  port: parseInt(env.db.port ?? "5432"),
+  username: env.db.username,
+  password: env.db.password,
+  database: env.environment === "test" ? env.db.testname : env.db.name,
   entities: [join(__dirname, "../entities/**/*{.ts,.js}")],
   migrations: [join(__dirname, "./migrations/**/*{.ts,.js}")],
   synchronize: true,
