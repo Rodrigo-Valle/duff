@@ -29,4 +29,14 @@ describe("SpotfyApi tests", () => {
       expect(result).toHaveProperty("playlists");
     });
   });
+
+  describe("GetPlaylistTracks", () => {
+    test("Should return all tracks from a playlist", async () => {
+      await sut.getToken();
+      const playlist = await sut.getPlaylistsByBeerStyle("IPA");
+      const result = await sut.getPlaylistTracks(playlist.playlists.items[0].id);
+
+      expect(result).toHaveProperty("items");
+    });
+  });
 });

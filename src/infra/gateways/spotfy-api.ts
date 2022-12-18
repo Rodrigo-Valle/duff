@@ -40,6 +40,20 @@ export class SpotifyApi {
     return result;
   }
 
+  async getPlaylistTracks(id: string): Promise<any> {
+    const query = "?fields=items(track(artists(name,external_urls.spotify),name))";
+    const url = `${this.baseUrlSpotify}/playlists/${id}/tracks${query}`;
+    const params = {
+      headers: {
+        Authorization: "Bearer " + this.token
+      }
+    };
+
+    const result = await this.httpClient.get({ url, params });
+
+    return result;
+  }
+
   private setToken(token: string): void {
     this.token = token;
   }
