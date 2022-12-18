@@ -1,8 +1,8 @@
-import { AxiosHttpClient, SpotfyApi } from "@/infra/gateways";
+import { AxiosHttpClient, SpotifyApi } from "@/infra/gateways";
 import { HttpClient } from "@/infra/interfaces";
 
 describe("SpotfyApi tests", () => {
-  let sut: SpotfyApi;
+  let sut: SpotifyApi;
   let httpClient: HttpClient;
 
   beforeAll(() => {
@@ -10,7 +10,7 @@ describe("SpotfyApi tests", () => {
   });
 
   beforeEach(() => {
-    sut = new SpotfyApi(httpClient);
+    sut = new SpotifyApi(httpClient);
   });
 
   describe("GetToken", () => {
@@ -18,6 +18,15 @@ describe("SpotfyApi tests", () => {
       const result = await sut.getToken();
 
       expect(result).toHaveProperty("access_token");
+    });
+  });
+
+  describe("GetPlaylists", () => {
+    test("Should return an playlist", async () => {
+      await sut.getToken();
+      const result = await sut.getPlaylistsByBeerStyle("IPA");
+
+      expect(result).toHaveProperty("playlists");
     });
   });
 });
