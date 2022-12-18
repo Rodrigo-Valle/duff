@@ -1,8 +1,8 @@
-import { AxiosHttpClient, SpotifyApi } from "@/infra/gateways";
+import { AxiosHttpClient, SpotifyApiGateway } from "@/infra/gateways";
 import { HttpClient } from "@/infra/interfaces";
 
 describe("SpotfyApi tests", () => {
-  let sut: SpotifyApi;
+  let sut: SpotifyApiGateway;
   let httpClient: HttpClient;
 
   beforeAll(() => {
@@ -10,7 +10,7 @@ describe("SpotfyApi tests", () => {
   });
 
   beforeEach(() => {
-    sut = new SpotifyApi(httpClient);
+    sut = new SpotifyApiGateway(httpClient);
   });
 
   describe("GetToken", () => {

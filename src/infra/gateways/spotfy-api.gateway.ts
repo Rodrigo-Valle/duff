@@ -1,7 +1,8 @@
+import { SpotifyApi } from "@/application/interfaces";
 import { HttpClient } from "@/infra/interfaces";
 import qs from "qs";
 
-export class SpotifyApi {
+export class SpotifyApiGateway implements SpotifyApi {
   baseUrlAuth = "https://accounts.spotify.com";
   baseUrlSpotify = "https://api.spotify.com/v1";
   token: string = "";
