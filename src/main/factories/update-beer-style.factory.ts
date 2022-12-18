@@ -1,6 +1,6 @@
 import { IController } from "@/presentation/interfaces";
 import { UpdateBeerStyleController } from "@/presentation/controller";
-import { UpdateBeerStyleService } from "@/application/services";
+import { UpdateBeerStyleService } from "@/application/services/beer-style";
 import { PostgresBeerStyleRepository } from "@/infra/repositories";
 import { PostgresDataSource } from "@/infra/database/pg-datasource";
 import { updateBeerStyleSchema } from "@/infra/validator/joiSchemas";

@@ -1,4 +1,4 @@
-import { GetAllBeerStyle } from "@/domain/usecases";
+import { GetAllBeerStyle } from "@/domain/usecases/beer-style";
 import { ServerError } from "@/presentation/errors";
 import { GetAllBeerStyleController } from "@/presentation/controller";
 import {

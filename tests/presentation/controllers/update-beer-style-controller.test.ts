@@ -1,4 +1,4 @@
-import { UpdateBeerStyle } from "@/domain/usecases";
+import { UpdateBeerStyle } from "@/domain/usecases/beer-style";
 import {
   updateRequest,
   updateServiceResponse,

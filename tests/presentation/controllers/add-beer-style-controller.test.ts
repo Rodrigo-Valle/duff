@@ -1,4 +1,4 @@
-import { AddBeerStyle } from "@/domain/usecases";
+import { AddBeerStyle } from "@/domain/usecases/beer-style";
 import {
   addBeerStyleServiceResponse,
   makeAddBeerStyleService,

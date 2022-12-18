@@ -1,4 +1,4 @@
-import { DeleteBeerStyle } from "@/domain/usecases";
+import { DeleteBeerStyle } from "@/domain/usecases/beer-style";
 
 export const deleteServiceResponse: number = 1;
 

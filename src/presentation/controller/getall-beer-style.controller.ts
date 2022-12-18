@@ -1,4 +1,4 @@
-import { GetAllBeerStyle } from "@/domain/usecases";
+import { GetAllBeerStyle } from "@/domain/usecases/beer-style";
 import { serverError, ok } from "@/presentation/helpers";
 import { IController, IHttpRequest, IHttpResponse } from "@/presentation/interfaces";
 

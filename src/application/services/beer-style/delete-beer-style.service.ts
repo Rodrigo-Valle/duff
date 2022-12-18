@@ -1,4 +1,4 @@
-import { DeleteBeerStyle } from "@/domain/usecases";
+import { DeleteBeerStyle } from "@/domain/usecases/beer-style";
 import { BeerStyleRepository } from "@/application/interfaces";
 
 export class DeleteBeerStyleService implements DeleteBeerStyle {

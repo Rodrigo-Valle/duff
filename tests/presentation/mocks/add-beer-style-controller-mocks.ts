@@ -1,5 +1,5 @@
 import { BeerStyle } from "@/domain/models";
-import { AddBeerStyleDTO, AddBeerStyle } from "@/domain/usecases";
+import { AddBeerStyleDTO, AddBeerStyle } from "@/domain/usecases/beer-style";
 
 export const addBeerStyleServiceResponse: BeerStyle = {
   id: "1",

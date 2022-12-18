@@ -1,5 +1,5 @@
 import { BeerStyle } from "@/domain/models";
-import { GetAllBeerStyle } from "@/domain/usecases";
+import { GetAllBeerStyle } from "@/domain/usecases/beer-style";
 
 export const getAllServiceResponse: BeerStyle[] = [
   {

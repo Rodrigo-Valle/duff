@@ -1,4 +1,4 @@
-import { DeleteBeerStyle } from "@/domain/usecases";
+import { DeleteBeerStyle } from "@/domain/usecases/beer-style";
 import { serverError, ok, notFound } from "@/presentation/helpers";
 import { IController, IHttpRequest, IHttpResponse } from "@/presentation/interfaces";
 

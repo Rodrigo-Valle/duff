@@ -1,5 +1,5 @@
 import { BeerStyle } from "@/domain/models";
-import { UpdateBeerStyleDTO, UpdateBeerStyle } from "@/domain/usecases";
+import { UpdateBeerStyleDTO, UpdateBeerStyle } from "@/domain/usecases/beer-style";
 import { BeerStyleRepository } from "@/application/interfaces";
 
 export class UpdateBeerStyleService implements UpdateBeerStyle {

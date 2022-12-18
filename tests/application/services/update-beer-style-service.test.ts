@@ -1,4 +1,4 @@
-import { UpdateBeerStyleService } from "@/application/services";
+import { UpdateBeerStyleService } from "@/application/services/beer-style";
 import { BeerStyleRepository } from "@/application/interfaces";
 import {
   makeBeerStyleRepository,

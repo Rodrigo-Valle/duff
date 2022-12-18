@@ -1,4 +1,4 @@
-import { DeleteBeerStyle } from "@/domain/usecases";
+import { DeleteBeerStyle } from "@/domain/usecases/beer-style";
 import { deleteRequest, makeDeleteBeerStyleService } from "@/tests/presentation/mocks";
 import { DeleteBeerStyleController } from "@/presentation/controller";
 import { ServerError } from "@/presentation/errors";

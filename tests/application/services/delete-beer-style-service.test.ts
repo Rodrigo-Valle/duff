@@ -1,4 +1,4 @@
-import { DeleteBeerStyleService } from "@/application/services";
+import { DeleteBeerStyleService } from "@/application/services/beer-style";
 import { BeerStyleRepository } from "@/application/interfaces";
 import { makeBeerStyleRepository, throwError, makeDeleteResult } from "@/tests/application/mocks";
 

@@ -1,4 +1,4 @@
-import { GetBeerStyleService } from "@/application/services";
+import { GetBeerStyleService } from "@/application/services/beer-style";
 import { BeerStyleRepository } from "@/application/interfaces";
 import { makeBeerStyleRepository, repositoryReturn, throwError } from "@/tests/application/mocks";
 

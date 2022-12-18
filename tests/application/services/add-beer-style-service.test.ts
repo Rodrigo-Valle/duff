@@ -1,4 +1,4 @@
-import { AddBeerStyleService } from "@/application/services";
+import { AddBeerStyleService } from "@/application/services/beer-style";
 import { BeerStyleRepository } from "@/application/interfaces";
 import {
   saveBeerStyleDTO,

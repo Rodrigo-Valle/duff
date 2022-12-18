@@ -1,4 +1,4 @@
-import { GetBeerStyle } from "@/domain/usecases";
+import { GetBeerStyle } from "@/domain/usecases/beer-style";
 import { BeerStyle } from "@/domain/models";
 import { BeerStyleRepository } from "@/application/interfaces";
 

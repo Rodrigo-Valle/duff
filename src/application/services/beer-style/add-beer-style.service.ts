@@ -1,4 +1,4 @@
-import { AddBeerStyleDTO, AddBeerStyle } from "@/domain/usecases";
+import { AddBeerStyleDTO, AddBeerStyle } from "@/domain/usecases/beer-style";
 import { BeerStyle } from "@/domain/models";
 import { BeerStyleRepository } from "@/application/interfaces";
 
