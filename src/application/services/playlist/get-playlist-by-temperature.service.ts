@@ -1,12 +1,10 @@
-// import { BeerStyleRepository, SpotifyApi } from "@/application/interfaces";
-// import { Playlist } from "@/domain/models";
-// import { GetPlaylistByTemperature } from "@/domain/usecases/playlist";
+import { BeerStyleRepository } from "@/application/interfaces";
+import { GetPlaylistByTemperature } from "@/domain/usecases/playlist";
 
-// export class GetPlaylistByTemperatureService implements: GetPlaylistByTemperature {
-//   constructor(private readonly repository: BeerStyleRepository) { }
+export class GetPlaylistByTemperatureService implements GetPlaylistByTemperature {
+  constructor(private readonly repository: BeerStyleRepository) {}
 
-//   async get(temperature: number): Promise<Playlist> {
-//     const beerStyle = await this.repository.findByTemperatureAverage(temperature);
-//   }
-
-// }
+  async get(temperature: number): Promise<any> {
+    await this.repository.findByTemperatureAverage(temperature);
+  }
+}
