@@ -41,6 +41,14 @@ describe("GetPlaylistByTemperature tests", () => {
     expect(findSpy).toHaveBeenCalledWith("any_name");
   });
 
+  test("Should return null if SpotifyApi getPlaylistsByBeerStyle returns null", async () => {
+    jest.spyOn(spotifyApi, "getPlaylistsByBeerStyle").mockResolvedValueOnce(null);
+
+    const result = await sut.get(5);
+
+    expect(result).toBe(null);
+  });
+
   test("Should Call SpotifyApi getPlaylistTracks with correct values", async () => {
     const findSpy = jest.spyOn(spotifyApi, "getPlaylistTracks");
 
