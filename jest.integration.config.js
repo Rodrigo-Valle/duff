@@ -3,7 +3,8 @@ module.exports = {
   testMatch: ["**/*.spec.ts"],
   collectCoverageFrom: [
     "<rootDir>/src/main/**/*.ts",
-    "!<rootDir>/src/main/**/index.ts",
+    "<rootDir>/src/infra/gateways/**/*.ts",
+    "!<rootDir>/src/**/index.ts",
     "!<rootDir>/src/infra/database/**/*.ts"
   ]
 };

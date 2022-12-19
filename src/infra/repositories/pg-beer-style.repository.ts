@@ -1,4 +1,5 @@
 import { SaveBeerStyleDTO, BeerStyleRepository } from "@/application/interfaces";
+import { BeerStyle } from "@/domain/models";
 import { BeerStyleDBEntity } from "@/infra/entities";
 
 import { DataSource, DeleteResult, Repository } from "typeorm";
@@ -29,6 +30,23 @@ export class PostgresBeerStyleRepository implements BeerStyleRepository {
     });
 
     return beerstyle;
+  }
+
+  async findByTemperatureAverage(temperature: number): Promise<BeerStyle> {
+    const averageQuery =
+      "(SUM(\"maxTemperature\") + SUM(\"minTemperature\")) / (COUNT(\"maxTemperature\") + COUNT(\"minTemperature\"))";
+    const beerstyle = await this.repository.query(`
+    SELECT id, "name", average
+    FROM (
+      SELECT id, "name", ${averageQuery} as average,
+      RANK() OVER (ORDER BY ABS(${temperature} - ${averageQuery}), "name" ASC) as rank
+      FROM "beer-style"
+      GROUP BY id, "name"
+      ) t
+      WHERE rank = 1
+    `);
+
+    return beerstyle[0];
   }
 
   async remove(id: string): Promise<DeleteResult> {

@@ -6,7 +6,7 @@ export class JoiSchemaValidator implements IValidator {
 
   isValid(body: any): undefined | string | string[] {
     try {
-      if (Object.keys(body).length === 0) return "Corpo está vazio";
+      if (Object.keys(body).length === 0) return "Não foi informado nenhum parâmetro";
 
       Joi.assert(body, this.schema, { abortEarly: false });
     } catch (error: any) {

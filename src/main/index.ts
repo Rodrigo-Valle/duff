@@ -1,12 +1,11 @@
 import "./config/module-alias";
-
-import "dotenv/config";
 import "reflect-metadata";
 
 import { app } from "@/main/config/app";
 import { PostgresDataSource } from "@/infra/database/pg-datasource";
+import { env } from "@/main/config/env";
 
-const port = process.env.APP_PORT ?? "8000";
+const port = env.port ?? "8000";
 
 PostgresDataSource.initialize()
   .then(() => {

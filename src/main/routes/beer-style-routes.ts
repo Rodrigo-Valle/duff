@@ -5,7 +5,7 @@ import {
   makeGetBeerStyleController,
   makeUpdateBeerStyleController,
   makeDeleteBeerStyleController
-} from "@/main/factories";
+} from "@/main/factories/beer-style";
 
 import { Router } from "express";
 

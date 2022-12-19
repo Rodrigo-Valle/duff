@@ -35,6 +35,10 @@ export const makeBeerStyleRepository = (): BeerStyleRepository => {
       return await Promise.resolve(repositoryReturn);
     }
 
+    async findByTemperatureAverage(temperature: number): Promise<BeerStyle> {
+      return await Promise.resolve(repositoryReturn);
+    }
+
     async remove(_id: string): Promise<DeleteResult> {
       const deleteResult = makeDeleteResult();
       deleteResult.affected = 1;
