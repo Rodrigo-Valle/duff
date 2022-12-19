@@ -1,6 +1,9 @@
 import { DeleteBeerStyle } from "@/domain/usecases/beer-style";
-import { deleteRequest, makeDeleteBeerStyleService } from "@/tests/presentation/mocks";
-import { DeleteBeerStyleController } from "@/presentation/controller";
+import {
+  deleteRequest,
+  makeDeleteBeerStyleService
+} from "@/../tests/presentation/mocks/beer-style-mocks";
+import { DeleteBeerStyleController } from "@/presentation/controller/beer-style";
 import { ServerError } from "@/presentation/errors";
 
 describe("DeleteBeerStyleController", () => {

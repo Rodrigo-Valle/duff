@@ -1,11 +1,11 @@
 import { GetAllBeerStyle } from "@/domain/usecases/beer-style";
 import { ServerError } from "@/presentation/errors";
-import { GetAllBeerStyleController } from "@/presentation/controller";
+import { GetAllBeerStyleController } from "@/presentation/controller/beer-style";
 import {
   getAllRequest,
   getAllServiceResponse,
   makeGetAllBeerStyleService
-} from "@/tests/presentation/mocks";
+} from "@/../tests/presentation/mocks/beer-style-mocks";
 
 describe("GetAllBeerStyleController", () => {
   let sut: GetAllBeerStyleController;

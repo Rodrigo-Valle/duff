@@ -2,12 +2,12 @@ import { AddBeerStyle } from "@/domain/usecases/beer-style";
 import {
   addBeerStyleServiceResponse,
   makeAddBeerStyleService,
-  addBeerStyleRequest,
-  makeValidatorAdapter
-} from "@/tests/presentation/mocks";
-import { AddBeerStyleController } from "@/presentation/controller";
+  addBeerStyleRequest
+} from "@/../tests/presentation/mocks/beer-style-mocks";
+import { AddBeerStyleController } from "@/presentation/controller/beer-style";
 import { ServerError } from "@/presentation/errors";
 import { IValidatorAdapter } from "@/presentation/interfaces";
+import { makeValidatorAdapter } from "@/tests/presentation/mocks";
 
 describe("AddBeerStyleController", () => {
   let sut: AddBeerStyleController;

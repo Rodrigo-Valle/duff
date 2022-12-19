@@ -1,5 +1,5 @@
 import { IController } from "@/presentation/interfaces";
-import { DeleteBeerStyleController } from "@/presentation/controller";
+import { DeleteBeerStyleController } from "@/presentation/controller/beer-style";
 import { DeleteBeerStyleService } from "@/application/services/beer-style";
 import { PostgresBeerStyleRepository } from "@/infra/repositories";
 import { PostgresDataSource } from "@/infra/database/pg-datasource";
