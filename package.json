@@ -1,6 +1,6 @@
 {
   "name": "duff",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Aplicacao para indicacao de melhor estilo de cerveja e playlist para acompanhamento, de acordo com temperatura desejada",
   "main": "index.js",
   "scripts": {

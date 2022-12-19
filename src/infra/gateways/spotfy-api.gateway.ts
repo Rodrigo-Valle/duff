@@ -15,7 +15,7 @@ export class SpotifyApiGateway implements SpotifyApi {
   constructor(private readonly httpClient: HttpClient) {}
 
   async getPlaylistsByBeerStyle(beerStyle: string): Promise<getPlaylistsByBeerStyleReturn | null> {
-    if (this.token === "" || undefined) await this.getToken();
+    await this.getToken();
 
     const query = `?q=${beerStyle}&type=playlist&limit=1`;
     const url = `${this.baseUrlSpotify}/search${query}`;
@@ -36,7 +36,7 @@ export class SpotifyApiGateway implements SpotifyApi {
   }
 
   async getPlaylistTracks(id: string): Promise<getPlaylistTracksReturn> {
-    if (this.token === "" || undefined) await this.getToken();
+    await this.getToken();
 
     const query = "?fields=items(track(artists(name,external_urls.spotify),name))";
     const url = `${this.baseUrlSpotify}/playlists/${id}/tracks${query}`;
