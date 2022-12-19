@@ -9,7 +9,7 @@ export class populateDb1671302354412 implements MigrationInterface {
       (gen_random_uuid(), 'Weizenbier', -4, 6),
       (gen_random_uuid(), 'Red ale', -5, 5),
       (gen_random_uuid(), 'India pale ale', -6, 7),
-      (gen_random_uuid(), 'IPA	', -7, 10),
+      (gen_random_uuid(), 'IPA', -7, 10),
       (gen_random_uuid(), 'Dunkel', -8, 2),
       (gen_random_uuid(), 'Imperial Stouts', -10, 13),
       (gen_random_uuid(), 'Brown ale', 0, 14)`

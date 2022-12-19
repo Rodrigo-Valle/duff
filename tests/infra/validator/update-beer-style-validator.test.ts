@@ -10,7 +10,7 @@ describe("UpdateBeerStyleSchemaValidation tests", () => {
   test("Should return an string if body is empty", () => {
     const result = sut.isValid({});
 
-    expect(result).toBe("Corpo está vazio");
+    expect(result).toBe("Não foi informado nenhum parâmetro");
   });
 
   test("Should return an string if name is not a string", () => {
