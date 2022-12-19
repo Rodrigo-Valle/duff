@@ -1,10 +1,9 @@
 import "./config/module-alias";
-import { env } from "@/main/config/env";
-
 import "reflect-metadata";
 
 import { app } from "@/main/config/app";
 import { PostgresDataSource } from "@/infra/database/pg-datasource";
+import { env } from "@/main/config/env";
 
 const port = env.port ?? "8000";
 

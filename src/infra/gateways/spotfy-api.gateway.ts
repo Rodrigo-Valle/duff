@@ -1,4 +1,8 @@
-import { SpotifyApi } from "@/application/interfaces";
+import {
+  getPlaylistTracksReturn,
+  getPlaylistsByBeerStyleReturn,
+  SpotifyApi
+} from "@/application/interfaces";
 import { HttpClient } from "@/infra/interfaces";
 import { env } from "@/main/config/env";
 import qs from "qs";
@@ -10,10 +14,10 @@ export class SpotifyApiGateway implements SpotifyApi {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  async getPlaylistsByBeerStyle(beerStyle: string): Promise<any> {
+  async getPlaylistsByBeerStyle(beerStyle: string): Promise<getPlaylistsByBeerStyleReturn | null> {
     if (this.token === "" || undefined) await this.getToken();
 
-    const query = "?q=IPA&type=playlist&limit=1";
+    const query = `?q=${beerStyle}&type=playlist&limit=1`;
     const url = `${this.baseUrlSpotify}/search${query}`;
     const params = {
       headers: {
@@ -23,10 +27,15 @@ export class SpotifyApiGateway implements SpotifyApi {
 
     const result = await this.httpClient.get({ url, params });
 
-    return result;
+    if (result.playlists.items.length === 0) return null;
+
+    return {
+      id: result.playlists.items[0].id,
+      name: result.playlists.items[0].name
+    };
   }
 
-  async getPlaylistTracks(id: string): Promise<any> {
+  async getPlaylistTracks(id: string): Promise<getPlaylistTracksReturn> {
     if (this.token === "" || undefined) await this.getToken();
 
     const query = "?fields=items(track(artists(name,external_urls.spotify),name))";
@@ -42,11 +51,7 @@ export class SpotifyApiGateway implements SpotifyApi {
     return result;
   }
 
-  private setToken(token: string): void {
-    this.token = token;
-  }
-
-  private async getToken(): Promise<any> {
+  private async getToken(): Promise<void> {
     const url = `${this.baseUrlAuth}/api/token`;
     const data = { grant_type: "client_credentials" };
     const params = {
@@ -60,7 +65,6 @@ export class SpotifyApiGateway implements SpotifyApi {
     };
 
     const result = await this.httpClient.post({ url, data: qs.stringify(data), params });
-    this.setToken(result.access_token);
-    return result;
+    this.token = result.access_token;
   }
 }

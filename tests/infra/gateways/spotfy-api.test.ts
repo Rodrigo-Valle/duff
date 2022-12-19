@@ -17,14 +17,16 @@ describe("SpotfyApi tests", () => {
     test("Should return an playlist", async () => {
       const result = await sut.getPlaylistsByBeerStyle("IPA");
 
-      expect(result).toHaveProperty("playlists");
+      expect(result).toHaveProperty("id");
+      expect(result).toHaveProperty("name");
     });
   });
 
   describe("GetPlaylistTracks", () => {
     test("Should return all tracks from a playlist", async () => {
       const playlist = await sut.getPlaylistsByBeerStyle("IPA");
-      const result = await sut.getPlaylistTracks(playlist.playlists.items[0].id);
+      if (!playlist) return undefined;
+      const result = await sut.getPlaylistTracks(playlist.id);
 
       expect(result).toHaveProperty("items");
     });

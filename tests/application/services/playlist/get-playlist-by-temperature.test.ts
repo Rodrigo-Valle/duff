@@ -2,7 +2,7 @@ import { BeerStyleRepository, SpotifyApi } from "@/application/interfaces";
 import { GetPlaylistByTemperature } from "@/domain/usecases/playlist";
 import { makeBeerStyleRepository, throwError } from "@/tests/application/mocks";
 import { GetPlaylistByTemperatureService } from "@/application/services/playlist";
-import { makeSpotifyApiStub } from "@/tests/application/mocks/spotify-api.mock";
+import { makeSpotifyApiStub, mockReponse } from "@/tests/application/mocks/spotify-api.mock";
 
 describe("GetPlaylistByTemperature tests", () => {
   let sut: GetPlaylistByTemperature;
@@ -33,11 +33,25 @@ describe("GetPlaylistByTemperature tests", () => {
     await expect(promise).rejects.toThrow();
   });
 
-  test("Should Call SpotifyApi with correct values", async () => {
+  test("Should Call SpotifyApi getPlaylistsByBeerStyle with correct values", async () => {
     const findSpy = jest.spyOn(spotifyApi, "getPlaylistsByBeerStyle");
 
     await sut.get(5);
 
     expect(findSpy).toHaveBeenCalledWith("any_name");
+  });
+
+  test("Should Call SpotifyApi getPlaylistTracks with correct values", async () => {
+    const findSpy = jest.spyOn(spotifyApi, "getPlaylistTracks");
+
+    await sut.get(5);
+
+    expect(findSpy).toHaveBeenCalledWith("any_id");
+  });
+
+  test("Should return an Playlist", async () => {
+    const result = await sut.get(5);
+
+    expect(result).toEqual(mockReponse);
   });
 });

@@ -46,7 +46,7 @@ export class PostgresBeerStyleRepository implements BeerStyleRepository {
       WHERE rank = 1
     `);
 
-    return beerstyle;
+    return beerstyle[0];
   }
 
   async remove(id: string): Promise<DeleteResult> {

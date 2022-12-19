@@ -2,32 +2,40 @@ import { SpotifyApi } from "../interfaces";
 
 export const tokenMock = { access_token: "token" };
 export const playlistsMock = {
-  playlists: {
-    items: [
-      {
-        id: "any_id",
-        name: "any_name"
-      }
-    ]
-  }
+  id: "any_id",
+  name: "any_playlist_name"
 };
 
 export const tracks = {
   items: [
     {
-      tracks: {
+      track: {
         artists: [
           {
             external_urls: {
               spotify: "any_url"
             },
-            name: "any_name"
+            name: "any_artist_name"
           }
         ],
-        name: "any_name"
+        name: "any_track_name"
       }
     }
   ]
+};
+
+export const mockReponse = {
+  beerStyle: "any_name",
+  playlist: {
+    name: "any_playlist_name",
+    tracks: [
+      {
+        name: "any_track_name",
+        artist: "any_artist_name",
+        link: "any_url"
+      }
+    ]
+  }
 };
 
 export const makeSpotifyApiStub = (): SpotifyApi => {
@@ -36,7 +44,7 @@ export const makeSpotifyApiStub = (): SpotifyApi => {
       return tokenMock;
     }
 
-    async getPlaylistsByBeerStyle(beerStyle: string): Promise<any> {
+    async getPlaylistsByBeerStyle(_beerStyle: string): Promise<any> {
       return playlistsMock;
     }
 

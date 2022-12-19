@@ -83,9 +83,7 @@ describe("PostgresBeerStyleRepository tests", () => {
 
       const beerstyle = await sut.findByTemperatureAverage(5);
 
-      expect(beerstyle).toEqual([
-        Object.assign({}, mockedInsertWithouTemperature, { average: "5" })
-      ]);
+      expect(beerstyle).toEqual(Object.assign({}, mockedInsertWithouTemperature, { average: "5" }));
     });
   });
 
