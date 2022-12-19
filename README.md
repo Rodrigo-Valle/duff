@@ -59,6 +59,8 @@ Foi escolhido Node.js para desenvolvimento, utilizando Typescript, framework Exp
 
 Para o desenvolvimento utilizei docker para subir o banco de dados, assim como para rodar os testes de integração.
 
+Aplicação desenvolvida utilizando práticas de Clean Code e Clean Architeture, a aplicação possui testes de unidade e integração, possui 100% de cobertura na grande maioria dos testes, em alguns ainda não possui 100% mas estão acima de 80%.
+
 ## Rotas:
 
 Buscar Todos os Estilos de Cerveja
