@@ -1,11 +1,7 @@
 import { GetAllBeerStyle } from "@/domain/usecases/beer-style";
 import { ServerError } from "@/presentation/errors";
 import { GetAllBeerStyleController } from "@/presentation/controller/beer-style";
-import {
-  getAllRequest,
-  getAllServiceResponse,
-  makeGetAllBeerStyleService
-} from "@/../tests/presentation/mocks/beer-style-mocks";
+import { beerStyleResponse, makeGetAllBeerStyleService } from "@/tests/presentation/mocks";
 
 describe("GetAllBeerStyleController", () => {
   let sut: GetAllBeerStyleController;
@@ -22,7 +18,7 @@ describe("GetAllBeerStyleController", () => {
   test("Should Call GetAllBeerStyleService", async () => {
     const getAllSpy = jest.spyOn(serviceStub, "getAll");
 
-    await sut.handle(getAllRequest);
+    await sut.handle({});
 
     expect(getAllSpy).toHaveBeenCalled();
   });
@@ -30,16 +26,16 @@ describe("GetAllBeerStyleController", () => {
   test("Should return 500 if GetAllBeerStyleService throws", async () => {
     jest.spyOn(serviceStub, "getAll").mockRejectedValueOnce(new Error("service error"));
 
-    const result = await sut.handle(getAllRequest);
+    const result = await sut.handle({});
 
     expect(result.statusCode).toBe(500);
     expect(result.body).toEqual(new ServerError());
   });
 
   test("Should return 200 if success", async () => {
-    const result = await sut.handle(getAllRequest);
+    const result = await sut.handle({});
 
     expect(result.statusCode).toBe(200);
-    expect(result.body).toEqual(getAllServiceResponse);
+    expect(result.body).toEqual([beerStyleResponse]);
   });
 });

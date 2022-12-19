@@ -1,7 +1,7 @@
 import { Playlist } from "@/domain/models";
 import { GetPlaylistByTemperature } from "@/domain/usecases/playlist";
 
-export const requestMock = {
+export const getPlaylistRequest = {
   query: {
     temperature: 5
   }
